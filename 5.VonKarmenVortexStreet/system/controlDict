@@ -1,0 +1,61 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+  =========                 |
+  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
+   \\    /   O peration     | Website:  https://openfoam.org
+    \\  /    A nd           | Version:  11
+     \\/     M anipulation  |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    format      ascii;
+    class       dictionary;
+    location    "system";
+    object      controlDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+application     foamRun;
+
+solver          incompressibleFluid;
+
+startFrom       latestTime;		// previously it was startTime
+
+startTime       0;
+
+stopAt          endTime;
+
+endTime         500;			// we should run the case for 10D/U (here would be 10 seconds)
+
+deltaT          0.005;		// should change this so that we have same courant number
+
+writeControl    runTime; 	// could be changed to "runTime" and "timeStep"
+
+writeInterval   5;
+
+purgeWrite      0;
+
+writeFormat     ascii;
+
+writePrecision  6;
+
+writeCompression off;
+
+timeFormat      general;
+
+timePrecision   6;
+
+runTimeModifiable true;
+
+//maxCo           5;
+//maxDeltaT       0.1;
+
+functions{					//While running the simulation, also compute these extra things automatically
+
+#includeFunc forceCoeffsIncompressible
+#includeFunc vorticity
+#includeFunc residuals
+
+}
+
+
+// ************************************************************************* //
