@@ -28,7 +28,7 @@ endTime         2000;
 
 deltaT          1;
 
-writeControl    timeStep;
+writeControl    timeStep;		// could have also been "runTime"
 
 writeInterval   100;
 
@@ -49,6 +49,7 @@ runTimeModifiable true;
 functions{
 			#includeFunc scalarTransport(T, diffusivity=constant, D=2.1429e-5)			// this value should be solved using prandlt number D=nu/Pr
 			#includeFunc wallShearStress
+			#includeFunc residuals
 }		
 
 

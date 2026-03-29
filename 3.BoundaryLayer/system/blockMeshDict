@@ -13,20 +13,47 @@ FoamFile
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-convertToMeters 1;		// 0.1 for centimeters, 0.01 for milimeters
+convertToMeters 1;			// 0.1 for centimeters, 0.01 for milimeters
 
-x0 -0.5;
-x1 0;
-x2 1.1;
-y0 0;
-y1 0.5;
-z0 -0.1;
-z1 0.1;
+////////////// These are in inputs for generating blocks, and the rest is calculateds
+//////////////
+L_plate			1.1;		// length of plate
+L_before		0.5;		// length before the plate
+Height			0.5;		// height of domain
+Nx1 			100;		// plate x number of cells
+rx1				12;			// expansion ration of plate in x
+Ny				150;			// number of cells in y direction
+ry				100;			// expansion ratio in y direction 
+/////////////////////////////////////////////////
 
-N 100;		// streamwise number of cells of the first mesh
-N1 220;		// streamwise number of cells of the second mesh
-N2	100; 			// perpendicular number of cells 
-G 200;
+x0 		#neg $L_before;			
+x1 		0;				
+x2 		$L_plate;			
+y0 		0;
+y1 		$Height;
+z0 		-0.2;
+z1 		0.2;
+
+// first domain (the right one, plate)
+Nx1		$Nx1;												// number of cells in the right region
+Lx1		$L_plate;											// length of righ region
+rx1		$rx1;												// expansion ratio of right region
+qx1		#calc "pow($rx1,1.0/($Nx1 - 1))";					// common ratio of expansion sequence
+ax1		#calc "$L_plate * ((1-$qx1) /(1-pow($qx1,$Nx1)) )";	// first term of geometric sequence
+
+// second domain (the left domain block)
+Lx2		$L_before;
+rx2		#calc "1.0 / $rx1";
+alpha	$ax1;
+ax2		#calc "$alpha / $rx2";
+qx2		#calc "($ax2 - $Lx2) / ($ax2 * $rx2 - $Lx2)";
+Nx2		#calc " int(1.0 + log($rx2)/log($qx2) )";
+
+// y direction domain characteristics
+Ny		$Ny;
+Ly		$Height;
+ry		$ry;
+
 
 vertices
 (
@@ -46,9 +73,8 @@ vertices
 
 blocks
 (
-    hex (0 2 4 6 1 3 5 7) ($N $N2 1) simpleGrading (1 $G 1)
-	hex (2 8 10 4 3 9 11 5) ($N1 $N2 1) simpleGrading (2 $G 1)
-	
+    hex (0 2 4 6 1 3 5 7) ($Nx2 $Ny 1) simpleGrading ($rx2 $ry 1)
+	hex (2 8 10 4 3 9 11 5) ($Nx1 $Ny 1) simpleGrading ($rx1 $ry 1)
 
 );
 
@@ -60,7 +86,6 @@ boundary
         faces
         (
 			(0 1 7 6)
-			
         );
     }
     outlet
@@ -69,7 +94,6 @@ boundary
         faces
         (
 			(8 10 11 9)
-			
         );
     }
     plate
@@ -78,7 +102,6 @@ boundary
         faces
         (
 			(2 8 9 3)
-			
         );
     }
 	
@@ -89,7 +112,6 @@ boundary
         (
 			(6 7 5 4)
 			(4 5 11 10)
-			
         );
     }
 	
