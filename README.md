@@ -8,6 +8,8 @@ I’ve organized everything in a way that makes it easy to navigate, run, and un
 ### 1. One-Dimensional Advection-Diffusion
 - Demonstrates scalar transport
 - Focus on numerical diffusion and discretization schemes
+  <img width="570" height="648" alt="image" src="https://github.com/user-attachments/assets/c6b236dd-4a9f-434a-914e-241f292785ba" />
+
 
 ### 2. Lid-Driven Cavity
 - Classic benchmark problem
