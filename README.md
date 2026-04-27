@@ -14,6 +14,8 @@ I’ve organized everything in a way that makes it easy to navigate, run, and un
 ### 2. Lid-Driven Cavity
 - Classic benchmark problem
 - Shows vortex formation and steady-state flow
+<img width="1704" height="495" alt="image" src="https://github.com/user-attachments/assets/1222cd67-7ff0-40d0-b4f6-e8ef57ea8337" />
+
 
 ### 3. Boundary Layer
 - Simulation of velocity boundary layer development
