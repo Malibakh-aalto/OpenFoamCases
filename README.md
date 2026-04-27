@@ -33,6 +33,7 @@ I’ve organized everything in a way that makes it easy to navigate, run, and un
 - Unsteady flow past a cylinder
 - Demonstrates vortex shedding and periodic behavior
 <img width="1794" height="1568" alt="image" src="https://github.com/user-attachments/assets/8e60390c-34d2-4d5c-bd1a-9b19d1db2352" />
+<img width="1041" height="755" alt="image" src="https://github.com/user-attachments/assets/f5f83d42-f4e3-452e-93ff-028f1a51cdc7" />
 <img width="1359" height="970" alt="image" src="https://github.com/user-attachments/assets/200a910a-9446-45f4-b791-f8acbe45ba1b" />
 <img width="1809" height="1193" alt="image" src="https://github.com/user-attachments/assets/779959ce-7109-446d-9585-6af49e347b11" />
 
